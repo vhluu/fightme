@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <keep-alive>
-      <component :is="selectedComp">
+      <component :is="selectedComp" v-bind="currentProps">
       </component>
     </keep-alive>
 
@@ -19,7 +19,8 @@ export default {
   name: 'app',
   data: function() {
     return {
-      selectedComp: 'app-home' 
+      selectedComp: 'app-home',
+      chosenType: null
     }
   },
   components: {
@@ -32,6 +33,17 @@ export default {
     eventBus.$on('changeScreen', (comp) => {
       this.selectedComp = comp;
     });
+
+    eventBus.$on('chosenType', (type) => {
+      this.chosenType = type;
+    });
+  },
+  computed: {
+    currentProps() {
+      if (this.selectedComp == 'app-game-play') {
+        return { type: this.chosenType }
+      }
+    }
   }
 }
 </script>

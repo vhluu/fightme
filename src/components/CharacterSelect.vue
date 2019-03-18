@@ -16,11 +16,13 @@
       </div>
       <div @click="chosenType = 'random'; startGame()">Random</div>
     </div>
-    <div>
+    <!-- <div>
       <label for="nickname">Enter a nickname: (Optional)</label>
       <input name="nickname" type="text">
-    </div>
+    </div> -->
+    <!-- will add player nickname (which we received from Add Game or Join Game) and type to db -->
     <button>Confirm</button>
+    <div v-if="confirmed && waiting">Waiting for other player</div>
   </div>
 </template>
 
@@ -29,7 +31,9 @@ import { eventBus } from '../main';
 export default {
   data: function() {
     return {
-      type: null
+      type: null,
+      waiting: true,
+      confirmed: false
     }
   },
   methods: {

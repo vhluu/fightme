@@ -4,5 +4,8 @@
   "files": [
     "dist"
   ],
-  "version": 2
+  "version": 2,
+  "routes": [
+    {"src": ".*", "dest": "/index.html"}
+  ]
 }

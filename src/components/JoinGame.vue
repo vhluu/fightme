@@ -19,6 +19,7 @@ export default {
       // find active game with invite code 
       // save user
       console.log(this.invite);
+      this.$myGlobalVars.nickname = this.nickname;
       axios.get('https://salty-brook-12582.herokuapp.com/api/game/' + this.invite)
         .then(response => {
           this.games = response.data;
@@ -27,13 +28,9 @@ export default {
             name: 'CharacterSelect',
             params: { id: this.invite }
           });
-
-
         })
         .catch(e => {
           console.log(e);
-          
-
         });
     }
   }

@@ -16,28 +16,61 @@
       </div>
       <div @click="chosenType = 'random'; startGame()">Random</div>
     </div>
-    <!-- <div>
-      <label for="nickname">Enter a nickname: (Optional)</label>
-      <input name="nickname" type="text">
-    </div> -->
-    <!-- will add player nickname (which we received from Add Game or Join Game) and type to db -->
-    <button>Confirm</button>
-    <div v-if="confirmed && waiting">Waiting for other player</div>
+    <div v-if="playerChosen && waiting">Waiting for other player</div>
   </div>
 </template>
 
 <script>
 import { eventBus } from '../main';
+import * as io from 'socket.io-client';
 export default {
   data: function() {
     return {
       type: null,
       waiting: true,
-      confirmed: false
+      confirmed: false,
+      socket: io('https://salty-brook-12582.herokuapp.com/'),
+      playerChosen: false,
+      player2Chosen: false,
+      gameID: ''
+    }
+  },
+  mounted() {
+    this.gameID = this.$route.params.id
+    this.socket.on('chose-type', function(data) {
+      console.log(this.gameID);
+      if(data.game == this.gameID) {
+        // we want to wait for the current player to choose 
+        this.player2Chosen = true;
+        this.$myGlobalVars.nickname2 = data.nickname;
+        this.$myGlobalVars.chosenType2 = data.type;
+      }
+    }.bind(this));
+  },
+  watch: {
+    playerChosen: function(value) {
+      if (value && this.player2Chosen) {
+        console.log(this.gameID);
+        this.$router.push({
+          name: 'GamePlay',
+          params: { id: this.gameID }
+        });
+      }   
+    },
+    player2Chosen: function(value) {
+      if (value && this.playerChosen) {
+        console.log(this.gameID);
+        this.$router.push({
+          name: 'GamePlay',
+          params: { id: this.gameID }
+        });
+      }
     }
   },
   methods: {
     startGame() {
+      // need to notify other user that they chosen
+      // need to wait for the other user to choose
       console.log('called function');
       if (this.chosenType == "random") {
         const rando = Math.floor(Math.random() * 3);
@@ -55,8 +88,12 @@ export default {
             this.chosenType = "air";
         }
       }
-      eventBus.$emit('changeScreen', 'app-game-play');
-      eventBus.$emit('chosenType', this.chosenType);
+
+      this.$myGlobalVars.chosenType = this.chosenType;
+      this.socket.emit('chose-type', { game: this.gameID, type: this.chosenType, nickname: this.nickname });
+      this.playerChosen = true;
+      //eventBus.$emit('changeScreen', 'app-game-play');
+      //eventBus.$emit('chosenType', this.chosenType);
     }
   }
 }

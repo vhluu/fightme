@@ -11,13 +11,9 @@
       <div class="btn" v-else @click="playerSelect">Choose Your Character</div>
     </div>
     <div v-else>
-      <input type="text" placeholder="Enter your nickname">
+      <input type="text" placeholder="Enter your nickname" v-model="nickname">
       <div clss="btn" @click="createGame">Create Game</div>
     </div>
-    
-    
-    
-    
   </div>
 </template>
 
@@ -27,7 +23,7 @@ import axios from 'axios';
 import * as io from 'socket.io-client';
 export default {
   data() {
-    return { invite: "", addedGame: false, waiting: true, socket: io('https://salty-brook-12582.herokuapp.com/')  }
+    return { invite: "", nickname: "", addedGame: false, waiting: true, socket: io('https://salty-brook-12582.herokuapp.com/')  }
   },
   mounted() {
     this.socket.on('start-game', function (data) {
@@ -55,8 +51,10 @@ export default {
       }
 
       let game = {
-          invite_code : inviteCode,
-        }
+        invite_code : inviteCode,
+      }
+
+      this.$myGlobalVars.nickname = this.nickname;
       
       axios.post('https://salty-brook-12582.herokuapp.com/api/game', game)
         .then( response => {

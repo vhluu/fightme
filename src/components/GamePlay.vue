@@ -20,6 +20,7 @@ import HPBar from './gameplay/HPBar.vue';
 import Moves from './gameplay/Moves.vue';
 import Character from './gameplay/Character.vue';
 import Activity from './gameplay/Activity.vue';
+import { eventBus } from '../main';
 
 export default {
   props: ['type'],
@@ -27,6 +28,7 @@ export default {
     return {
       firstHP: 100,
       secondHP: 100,
+      messsageLog: []
     }
   },
   components: {
@@ -34,6 +36,16 @@ export default {
     'app-moves': Moves,
     'app-character': Character,
     'app-activity': Activity
+  },
+  created() {
+    eventBus.$on('moveSelected', (data) => {
+      console.log(data);
+      // calculate the damage
+      // display event in message log
+      // determine if player is still alive
+    });
+
+    // need to randomly choose who goes first
   }
 }
 </script>

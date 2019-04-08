@@ -26,12 +26,12 @@ export default new Router({
       component: JoinGame
     },
     {
-      path: '/game/:id',
+      path: '/game/:id/choose',
       name: 'CharacterSelect',
       component: CharacterSelect
     },
     {
-      path: '/game/:id/:nickname',
+      path: '/game/:id',
       name: 'GamePlay',
       component: GamePlay
     }

@@ -4,14 +4,14 @@
     <div class="main-display">
       <div>
         <app-hp-bar :hp="firstHP"></app-hp-bar>
-        <app-character :type="type"></app-character> 
+        <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
       </div>
       <div>
         <app-hp-bar :hp="secondHP"></app-hp-bar>
-        <app-character :type="secondType"></app-character>
+        <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
       </div>
     </div>
-    <app-moves :type="type"></app-moves>
+    <app-moves :type="$myGlobalVars.chosenType"></app-moves>
   </div>
 </template>
 
@@ -27,7 +27,6 @@ export default {
     return {
       firstHP: 100,
       secondHP: 100,
-      types: ['fire', 'water', 'earth', 'air']
     }
   },
   components: {
@@ -35,11 +34,6 @@ export default {
     'app-moves': Moves,
     'app-character': Character,
     'app-activity': Activity
-  },
-  computed: {
-    secondType() {
-      return this.types[Math.floor(Math.random() * 3)]
-    }
   }
 }
 </script>

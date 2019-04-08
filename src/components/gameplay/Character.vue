@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div v-if="type == 'fire'">Fire 🔥</div>
-    <div v-else-if="type == 'water'">Water 🌊</div>
-    <div v-else-if="type == 'earth'">Earth ⛰️</div>
-    <div v-else-if="type == 'air'">Air 💨</div>
+    <h3>{{nickname}}</h3>
+    <h4 v-if="type == 'fire'">Fire 🔥</h4>
+    <h4 v-else-if="type == 'water'">Water 🌊</h4>
+    <h4 v-else-if="type == 'earth'">Earth ⛰️</h4>
+    <h4 v-else-if="type == 'air'">Air 💨</h4>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['type']
+  props: ['type', 'nickname']
 }
 </script>
 

@@ -90,10 +90,8 @@ export default {
       }
 
       this.$myGlobalVars.chosenType = this.chosenType;
-      this.socket.emit('chose-type', { game: this.gameID, type: this.chosenType, nickname: this.nickname });
+      this.socket.emit('chose-type', { game: this.gameID, type: this.chosenType, nickname: this.$myGlobalVars.nickname });
       this.playerChosen = true;
-      //eventBus.$emit('changeScreen', 'app-game-play');
-      //eventBus.$emit('chosenType', this.chosenType);
     }
   }
 }

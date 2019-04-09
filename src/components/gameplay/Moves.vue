@@ -13,20 +13,20 @@ export default {
     return {
       moves: {
         fire: [
-          {"name": "Volcano Eruption", "damage": "normal"},
-          {"name": "My Mix Tape", "damage": "high"},
+          {"name": "Volcano Eruption", "damage": 1},
+          {"name": "My Mix Tape", "damage": 2},
         ],
         water: [
-          {"name": "Tsunami", "damage": "normal"},
-          {"name": "K-Drama Tears", "damage": "high"}
+          {"name": "Tsunami", "damage": 1},
+          {"name": "K-Drama Tears", "damage": 2}
         ],
         earth: [
-          {"name": "Earthquake", "damage": "normal"},
-          {"name": "Upstairs Neighbors Stomping", "damage": "high"}
+          {"name": "Earthquake", "damage": 1},
+          {"name": "Upstairs Neighbors Stomping", "damage": 2}
         ],
         air: [
-          {"name": "Tornado", "damage": "normal"},
-          {"name": "Dad Sneeze", "damage": "high"}
+          {"name": "Tornado", "damage": 1},
+          {"name": "Dad Sneeze", "damage": 2}
         ]
       },
       waitTime: 0,
@@ -40,7 +40,7 @@ export default {
       if (index == 1) this.waitTime = 2;
       
       // we want to emit to gameplay the new chosen move
-      var moveInfo = (index == 3) ? {name: "Heal", damage: "none"} : this.moves[this.type][index];
+      var moveInfo = (index == 3) ? {name: "Heal", damage: 0} : this.moves[this.type][index];
       eventBus.$emit('moveSelected', moveInfo);
       
     }

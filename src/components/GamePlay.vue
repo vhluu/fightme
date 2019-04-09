@@ -24,11 +24,13 @@ import Moves from './gameplay/Moves.vue';
 import Character from './gameplay/Character.vue';
 import Activity from './gameplay/Activity.vue';
 import { eventBus } from '../main';
+import * as io from 'socket.io-client';
 
 export default {
   props: ['type'],
   data: function() {
     return {
+      socket: io('https://salty-brook-12582.herokuapp.com/'),
       firstHP: 100,
       secondHP: 100,
       messageLog: [],
@@ -52,21 +54,31 @@ export default {
       var damage = this.calculateDamage(data.damage);
 
       // display event in message log
+      var msg;
       this.messageLog.push(this.$myGlobalVars.nickname + ' used ' + data.name);
       if (data.name == 'Heal') {
         this.setNewHP(false, 10);
-        this.messageLog.push(this.$myGlobalVars.nickname + ' gained 10 HP');
+        msg = this.$myGlobalVars.nickname + ' gained 10 HP';
+        this.messageLog.push(msg);
       }
       else {
         this.setNewHP(true, damage);
-        this.messageLog.push(this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP');
+        msg = this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP';
+        this.messageLog.push(msg);
       }
 
-      // emit move to opponent
-      // need the message, move, new HP 
+      // emit move to opponent (need the message, move, new HP)
+      this.socket.emit('new-move', { message: msg, move: data, opponentHP: this.firstHP, userHP: this.secondHP });
     });
 
-    // need to randomly choose who goes first
+    // user receives opponent move from server
+    this.socket.on('new-move', (data) => {
+      this.messageLog.push(data.message);
+      this.firstHP = data.userHP;
+      this.secondHP = data.opponentHP;
+    });
+
+    // TODO: need to randomly choose who goes first
 
     // determine if user's type is strong, weak or normal against opponent's type
     if (this.$myGlobalVars.chosenType != this.$myGlobalVars.chosenType2) {
@@ -87,6 +99,7 @@ export default {
       if (damageLevel == 0) return 10; // damageLevel 0 for heal move
       return this.damageTable[damageLevel - 1][this.strengthAgainst];
     },
+    // sets the new HP, where value is the points to add or subtract
     setNewHP(isOpponent, value) {
       var newHP;
       if (!isOpponent) {

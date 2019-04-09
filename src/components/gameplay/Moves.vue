@@ -13,19 +13,19 @@ export default {
     return {
       moves: {
         fire: [
-          {"name": "Volcano Eruption", "damage": 1},
-          {"name": "My Mix Tape", "damage": 2},
+          {"name": "Hot Cheeto Puffs", "damage": 1},
+          {"name": "Spicy Fire Noodle Fling", "damage": 2},
         ],
         water: [
-          {"name": "Tsunami", "damage": 1},
-          {"name": "K-Drama Tears", "damage": 2}
+          {"name": "Sweaty Palms Attack", "damage": 1},
+          {"name": "Voss Artesian Water Fall", "damage": 2}
         ],
         earth: [
-          {"name": "Earthquake", "damage": 1},
-          {"name": "Upstairs Neighbors Stomping", "damage": 2}
+          {"name": "Upstairs Neighbors Stomp", "damage": 1},
+          {"name": "Global Warming", "damage": 2}
         ],
         air: [
-          {"name": "Tornado", "damage": 1},
+          {"name": "Silent Fart", "damage": 1},
           {"name": "Dad Sneeze", "damage": 2}
         ]
       },

@@ -5,6 +5,7 @@ import AddGame from '../components/AddGame'
 import JoinGame from '../components/JoinGame'
 import CharacterSelect from '../components/CharacterSelect'
 import GamePlay from '../components/GamePlay'
+import Results from '../components/Results'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/game/:id',
       name: 'GamePlay',
       component: GamePlay
+    },
+    {
+      path: '/game/:id/results',
+      name: 'Results',
+      component: Results
     }
   ]
 })

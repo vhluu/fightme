@@ -72,6 +72,11 @@ export default {
         this.setNewHP(true, damage);
         msg = this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP';
         this.messageLog.push(msg);
+
+        // opponent has been defeated by latest move
+        if (this.secondHP == 0) {
+          this.playerDefeated(this.$myGlobalVars.nickname2);
+        }
       }
 
       // emit move to opponent (need the message, move, new HP)
@@ -86,11 +91,11 @@ export default {
         this.firstHP = data.userHP;
         this.secondHP = data.opponentHP;
         this.myTurn = true;
+        if (data.userHP == 0) {
+          this.playerDefeated(this.$myGlobalVars.nickname);
+        }
       }     
     });
-
-    // TODO: need to randomly choose who goes first
-    
 
     // determine if user's type is strong, weak or normal against opponent's type
     if (this.$myGlobalVars.chosenType != this.$myGlobalVars.chosenType2) {
@@ -122,6 +127,13 @@ export default {
         newHP = this.secondHP - value;
         this.secondHP = (newHP <= 0) ? 0 : newHP;
       }
+    },
+    playerDefeated(nickname) {
+      this.messageLog.push('RIP :( ' + nickname + 'has been defeated!');
+        this.$router.push({
+          name: 'Results',
+          params: { id: this.gameID }
+        });
     }
   }
 }

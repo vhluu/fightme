@@ -23,7 +23,12 @@ export default {
       axios.get('https://salty-brook-12582.herokuapp.com/api/game/' + this.invite)
         .then(response => {
           this.games = response.data;
-          this.socket.emit('joined-game', { game: this.invite, nickname: this.nickname });
+
+          // decide which player will be going first
+          var turn = (Math.round(Math.random()) == 0);
+          this.$myGlobalVars.goFirst = turn;
+          // let opponent know that user has joined the game
+          this.socket.emit('joined-game', { game: this.invite, nickname: this.nickname, goFirst: !turn });
           this.$router.push({
             name: 'CharacterSelect',
             params: { id: this.invite }

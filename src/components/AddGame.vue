@@ -5,7 +5,6 @@
       <div>{{ invite }}</div>
       <!-- add a click to copy -->
       <!-- remove this later -->
-      <div @click="waiting = false">Pretend there's a player</div>
       <div v-if="waiting">Waiting for another player</div>
       <!-- change so that it listens for the event and then loads the player select screen -->
       <div class="btn" v-else @click="playerSelect">Choose Your Character</div>
@@ -30,8 +29,8 @@ export default {
       console.log('game detected player 2');
       console.log(data.game + this.invite);
       if(data.game === this.invite) {
-        // save the other user's nickname somewhere
         this.waiting = false;
+        this.$myGlobalVars.goFirst = data.goFirst;
         this.$router.push({
           name: 'CharacterSelect',
           params: { id: this.invite }

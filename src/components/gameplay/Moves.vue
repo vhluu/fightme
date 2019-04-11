@@ -1,14 +1,14 @@
 <template>
   <div>
-    <button :disabled="waiting || (index == 1 && waitTime > 0)" v-for="(move, index) in moves[type]" v-bind:key="move.name" @click="selectMove(index)">{{ move.name }}</button>
-    <button @click="selectMove(3)" :disabled="waiting">Heal</button>
+    <button :disabled="disableBtns || (index == 1 && waitTime > 0)" v-for="(move, index) in moves[type]" v-bind:key="move.name" @click="selectMove(index)">{{ move.name }}</button>
+    <button @click="selectMove(3)" :disabled="disableBtns">Heal</button>
   </div>
 </template>
 
 <script>
 import { eventBus } from '../../main';
 export default {
-  props: ['type'],
+  props: ['type', 'disableBtns'],
   data: function() {
     return {
       moves: {
@@ -29,8 +29,7 @@ export default {
           {"name": "Dad Sneeze", "damage": 2}
         ]
       },
-      waitTime: 0,
-      waiting: false
+      waitTime: 0
     }
   },
   methods: {

@@ -11,7 +11,8 @@
         <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
       </div>
     </div>
-    <app-moves :type="$myGlobalVars.chosenType"></app-moves>
+    <div v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</div>
+    <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
     <div class="message-log">
       <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
     </div>   
@@ -38,7 +39,9 @@ export default {
       damageTable: [
         [6,10,14], // normal attack: weak against, normal, & strong against opponent
         [10,20,30] // strong attack: -
-      ]
+      ],
+      gameID: '',
+      myTurn: false // whether user plays the first move
     }
   },
   components: {
@@ -48,14 +51,18 @@ export default {
     'app-activity': Activity
   },
   created() {
+    this.myTurn = this.$myGlobalVars.goFirst;
+    this.gameID = this.$route.params.id;
     eventBus.$on('moveSelected', (data) => {
+      this.myTurn = false;
       console.log(data);
       // calculate the damage
       var damage = this.calculateDamage(data.damage);
 
       // display event in message log
       var msg;
-      this.messageLog.push(this.$myGlobalVars.nickname + ' used ' + data.name);
+      var msg2 = this.$myGlobalVars.nickname + ' used ' + data.name
+      this.messageLog.push(msg2);
       if (data.name == 'Heal') {
         this.setNewHP(false, 10);
         msg = this.$myGlobalVars.nickname + ' gained 10 HP';
@@ -68,17 +75,22 @@ export default {
       }
 
       // emit move to opponent (need the message, move, new HP)
-      this.socket.emit('new-move', { message: msg, move: data, opponentHP: this.firstHP, userHP: this.secondHP });
+      this.socket.emit('new-move', { moveMsg: msg2, damageMsg: msg, move: data, opponentHP: this.firstHP, userHP: this.secondHP, game: this.gameID });
     });
 
     // user receives opponent move from server
     this.socket.on('new-move', (data) => {
-      this.messageLog.push(data.message);
-      this.firstHP = data.userHP;
-      this.secondHP = data.opponentHP;
+      if (data.game == this.gameID) {
+        this.messageLog.push(data.moveMsg);
+        this.messageLog.push(data.damageMsg);
+        this.firstHP = data.userHP;
+        this.secondHP = data.opponentHP;
+        this.myTurn = true;
+      }     
     });
 
     // TODO: need to randomly choose who goes first
+    
 
     // determine if user's type is strong, weak or normal against opponent's type
     if (this.$myGlobalVars.chosenType != this.$myGlobalVars.chosenType2) {

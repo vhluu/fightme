@@ -76,6 +76,7 @@ export default {
         // opponent has been defeated by latest move
         if (this.secondHP == 0) {
           this.playerDefeated(this.$myGlobalVars.nickname2);
+          this.$myGlobalVars.won = true;
         }
       }
 
@@ -93,6 +94,7 @@ export default {
         this.myTurn = true;
         if (data.userHP == 0) {
           this.playerDefeated(this.$myGlobalVars.nickname);
+          this.$myGlobalVars.won = false;
         }
       }     
     });

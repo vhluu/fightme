@@ -10,7 +10,8 @@
       <div class="btn" v-else @click="playerSelect">Choose Your Character</div>
     </div>
     <div v-else>
-      <input type="text" placeholder="Enter your nickname" v-model="nickname">
+      <input type="text" placeholder="Enter your nickname" v-model="nickname" maxlength="30">
+      <div v-if="showErrorMsg">A nickname is required!</div>
       <div clss="btn" @click="createGame">Create Game</div>
     </div>
   </div>
@@ -22,7 +23,7 @@ import axios from 'axios';
 import * as io from 'socket.io-client';
 export default {
   data() {
-    return { invite: "", nickname: "", addedGame: false, waiting: true, socket: io('https://salty-brook-12582.herokuapp.com/')  }
+    return { invite: "", nickname: "", addedGame: false, waiting: true, socket: io('https://salty-brook-12582.herokuapp.com/'), showErrorMsg: false  }
   },
   mounted() {
     this.socket.on('start-game', function (data) {
@@ -41,6 +42,10 @@ export default {
   methods: {
     
     createGame() {
+      if (this.nickname == "") {
+        this.showErrorMsg = true;
+        return;
+      }
       // generate invite code
       var inviteCode = "";
       var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

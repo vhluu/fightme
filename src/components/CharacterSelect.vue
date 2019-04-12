@@ -1,20 +1,24 @@
 <template>
   <div>
-    <h1>Choose a Character</h1>
-    <div>
-      <div class="character" @click="chosenType = 'fire'; startGame()">
-        Fire 🔥
+    <h1>Choose Your Fighter</h1>
+    <div class="flex space-between">
+      <div class="card character tablet-col-2" @click="chosenType = 'fire'; startGame()">
+        <img src="../assets/fire_dino.png">
+        <h3>Fire 🔥</h3>
       </div>
-      <div class="character" @click="chosenType = 'water'; startGame()">
-        Water 🌊
+      <div class="card character tablet-col-2" @click="chosenType = 'water'; startGame()">
+        <img src="../assets/water_dino.png">
+        <h3>Water 🌊</h3>
       </div>
-      <div class="character" @click="chosenType = 'earth'; startGame()">
-        Earth ⛰️
+      <div class="card character tablet-col-2" @click="chosenType = 'earth'; startGame()">
+        <img src="../assets/earth_dino.png">
+        <h3>Earth ⛰️</h3>
       </div>
-      <div class="character" @click="chosenType = 'air'; startGame()">
-        Air 💨
+      <div class="card character tablet-col-2" @click="chosenType = 'air'; startGame()">
+        <img src="../assets/air_dino.png">
+        <h3>Air 💨</h3>
       </div>
-      <div @click="chosenType = 'random'; startGame()">Random</div>
+      <div class="card tablet-col-2" @click="chosenType = 'random'; startGame()">Random</div>
     </div>
     <div v-if="playerChosen && waiting">Waiting for other player</div>
   </div>

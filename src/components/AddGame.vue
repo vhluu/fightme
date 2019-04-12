@@ -12,7 +12,7 @@
     <div v-else>
       <input type="text" placeholder="Enter your nickname" v-model="nickname" maxlength="30">
       <div v-if="showErrorMsg">A nickname is required!</div>
-      <div clss="btn" @click="createGame">Create Game</div>
+      <div class="btn" @click="createGame">Create Game</div>
     </div>
   </div>
 </template>

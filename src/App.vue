@@ -49,13 +49,18 @@ export default {
 </script>
 
 <style>
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: rgb(51,71,91);
   margin-top: 60px;
+  background: rgb(245,247,250);
 }
 
 h1, h2 {
@@ -72,7 +77,53 @@ li {
   margin: 0 10px;
 }
 
+img {
+  max-width: 100%;
+}
+
 a {
   color: #42b983;
+  text-decoration: none;
+}
+
+.btn, a.btn {
+  display: inline-block;
+  color: #fff;
+  background: #75D6FF;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+.btn:hover, a.btn:hover {
+  opacity: 0.8
+}
+
+.btn-light, a.btn-light {
+  background: #BBEBFF;
+  color: #009ee3;
+}
+
+.btn-light:hover, a.btn-light:hover {
+  background: #99E0FF;
+}
+
+.card {
+  background: #fff;
+  box-shadow: rgb(234, 240, 246) 0px 0px 11px 0px;
+  padding: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .space-between {
+    justify-content: space-between;
+  }
+  .tablet-col-2 {
+    flex-basis: calc((100% - 20px) / 2);
+    max-width: calc((100% - 20px) / 2);
+  }
 }
 </style>

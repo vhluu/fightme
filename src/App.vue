@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <!-- <keep-alive>
       <component :is="selectedComp" v-bind="currentProps">
       </component>
-    </keep-alive>
-
+    </keep-alive> -->
+  <router-view/>
   </div>
 </template>
 
@@ -30,20 +30,20 @@ export default {
   },
   created() {
     // listen to selectedComp change event
-    eventBus.$on('changeScreen', (comp) => {
-      this.selectedComp = comp;
-    });
+    // eventBus.$on('changeScreen', (comp) => {
+    //   this.selectedComp = comp;
+    // });
 
-    eventBus.$on('chosenType', (type) => {
-      this.chosenType = type;
-    });
+    // eventBus.$on('chosenType', (type) => {
+    //   this.chosenType = type;
+    // });
   },
   computed: {
-    currentProps() {
-      if (this.selectedComp == 'app-game-play') {
-        return { type: this.chosenType }
-      }
-    }
+    // currentProps() {
+    //   if (this.selectedComp == 'app-game-play') {
+    //     return { type: this.chosenType }
+    //   }
+    // }
   }
 }
 </script>

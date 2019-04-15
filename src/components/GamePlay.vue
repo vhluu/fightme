@@ -1,21 +1,23 @@
 <template>
-  <div class="game-play">
-    <!-- back button -->
-    <div class="main-display">
-      <div>
-        <app-hp-bar :hp="firstHP"></app-hp-bar>
-        <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
+  <div class="inner">
+    <div class="game-play">
+      <!-- back button -->
+      <div class="main-display">
+        <div>
+          <app-hp-bar :hp="firstHP"></app-hp-bar>
+          <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
+        </div>
+        <div>
+          <app-hp-bar :hp="secondHP"></app-hp-bar>
+          <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
+        </div>
       </div>
-      <div>
-        <app-hp-bar :hp="secondHP"></app-hp-bar>
-        <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
-      </div>
+      <div v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</div>
+      <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
+      <div class="message-log">
+        <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
+      </div>   
     </div>
-    <div v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</div>
-    <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
-    <div class="message-log">
-      <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
-    </div>   
   </div>
 </template>
 

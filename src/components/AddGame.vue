@@ -1,18 +1,25 @@
 <template>
-  <div>
-    <div v-if="addedGame">
-      <div>Your invite code is:</div>
-      <div>{{ invite }}</div>
-      <!-- add a click to copy -->
-      <!-- remove this later -->
-      <div v-if="waiting">Waiting for another player</div>
-      <!-- change so that it listens for the event and then loads the player select screen -->
-      <div class="btn" v-else @click="playerSelect">Choose Your Character</div>
-    </div>
-    <div v-else>
-      <input type="text" placeholder="Enter your nickname" v-model="nickname" maxlength="30">
-      <div v-if="showErrorMsg">A nickname is required!</div>
-      <div class="btn" @click="createGame">Create Game</div>
+  <div class="inner">
+    <div class="card card-shadow">
+      <div v-if="addedGame">
+        <h2>Your invite code is:</h2>
+        <div class="invite-code">{{ invite }}</div>
+        <!-- add a click to copy -->
+        <!-- remove this later -->
+        <div class="msg info" v-if="waiting">Waiting for another player...</div>
+        <!-- change so that it listens for the event and then loads the player select screen -->
+        <div class="btn" v-else @click="playerSelect">Choose Your Character</div>
+      </div>
+      <div v-else>
+        <h2>Enter your nickname to begin</h2>
+        <div class="input-fields">
+          <input type="text" placeholder="ex. Mr. Squarepants" v-model="nickname" maxlength="30">
+          <div class="btn" @click="createGame">Create Game</div>
+        </div>
+        <div class="msg error" v-if="showErrorMsg">
+          A nickname is required!
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -74,3 +81,9 @@ export default {
   // wait for player 2 and then go to /game/:id/
 }
 </script>
+
+<style scoped>
+.input-fields {
+  margin-bottom: 20px;
+}
+</style>

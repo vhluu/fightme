@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <button :disabled="disableBtns || (index == 1 && waitTime > 0)" v-for="(move, index) in moves[type]" v-bind:key="move.name" @click="selectMove(index)">{{ move.name }}</button>
-    <button @click="selectMove(3)" :disabled="disableBtns">Heal</button>
+  <div class="moves">
+    <button class="btn" :class="[type, {disabled: disableBtns}]" :disabled="disableBtns || (index == 1 && waitTime > 0)" v-for="(move, index) in moves[type]" v-bind:key="move.name" @click="selectMove(index)">{{ move.name }}</button>
+    <button class="btn heal-btn" :class="[type, {disabled: disableBtns}]" @click="selectMove(3)" :disabled="disableBtns">Heal</button>
   </div>
 </template>
 
@@ -46,3 +46,24 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.btn {
+  margin: 0 5px;
+}
+.heal-btn {
+  margin-left: 0;
+}
+.fire {
+  background: #EF5350
+}
+.water {
+  background: #4FC3F7;
+}
+.air {
+  background: #A569BD;
+}
+.earth {
+  background: #48C9B0;
+}
+</style>

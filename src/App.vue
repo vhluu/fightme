@@ -106,12 +106,18 @@ a {
 }
 
 /* BUTTONS */
+button {
+  border: 0;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-size: inherit;
+}
 .btn, a.btn {
   display: inline-block;
   color: #fff;
-  background: #75D6FF;
+  background: #49c8ff;
   padding: 8px 12px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .btn:hover, a.btn:hover {
   opacity: 0.8
@@ -123,6 +129,11 @@ a {
 .btn-light:hover, a.btn-light:hover {
   background: #99E0FF;
 }
+.disabled, .disabled:hover {
+  opacity: 0.3;
+  cursor: default;
+}
+
 
 /* CARDS */
 .card {

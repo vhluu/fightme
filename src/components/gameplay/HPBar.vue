@@ -2,7 +2,7 @@
   <div class="healthbar">
     <div
       class="healthbar text-center"
-      style="background-color: green; margin: 0; color: white;"
+      style="background-color: #58D68D; margin: 0; color: white;"
       :style="{width: hp + '%'}">
       {{ hp }}
     </div>
@@ -26,6 +26,8 @@ export default {
   background-color: #eee;
   margin: auto;
   transition: width 500ms;
+  line-height: 40px;
+  font-weight: bold;
 }
 </style>
 

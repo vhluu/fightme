@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <input type="text" placeholder="Invite Code" v-model="invite" maxlength="5">
-    <input type="text" placeholder="Enter your nickname" v-model="nickname" maxlength="35">
-    <div v-if="showErrorMsg">Invite Code and nickname are both required!</div>
-    <div class="btn" @click="joinGame">Join Game</div>
-    <div v-if="incorrectInvite">Incorrect Invite Code. Please try again</div>
+  <div class="inner">
+    <div class="card card-shadow">
+      <h2>Enter an invite code and your nickname to begin</h2>
+      <input type="text" placeholder="Invite Code" v-model="invite" maxlength="5">
+      <input type="text" placeholder="Nickname" v-model="nickname" maxlength="35">
+      <div v-if="showErrorMsg">Invite code and nickname are both required!</div>
+      <div class="btn" @click="joinGame">Join Game</div>
+      <div v-if="incorrectInvite">Incorrect Invite Code. Please try again</div>
+    </div>
   </div>
 </template>
 

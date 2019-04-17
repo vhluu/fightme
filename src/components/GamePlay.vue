@@ -3,14 +3,15 @@
     <div class="game-play">
       <!-- back button -->
       <div class="main-display">
-        <div>
+        <div class="player player-user">
           <app-hp-bar :hp="firstHP"></app-hp-bar>
           <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
         </div>
-        <div>
+        <div class="player player-opp">
           <app-hp-bar :hp="secondHP"></app-hp-bar>
           <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
         </div>
+        <img class="pancake-bg" src="../assets/pancake.png" alt="Pancake Stadium">
       </div>
       <div v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</div>
       <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
@@ -147,5 +148,31 @@ export default {
 .main-display {
   display: flex;
   justify-content: center;
+  position: relative;
+  /* background-image: url(../assets/pancake.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  flex-wrap: wrap; */
+}
+
+.player {
+  flex-basis: 50%;
+  max-width: 50%;
+}
+.player-user img {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.character img {
+  height: 30vw;
+}
+
+.pancake-bg {
+  position: absolute;
+  bottom: -20vw;
+  z-index: -1;
 }
 </style>

@@ -196,6 +196,9 @@ button {
   .space-between {
     justify-content: space-between;
   }
+  .justify-center {
+    justify-content: center;
+  }
   .tablet-col-2 {
     flex-basis: calc((100% - 20px) / 2);
     max-width: calc((100% - 20px) / 2);
@@ -211,4 +214,17 @@ button {
     max-width: calc((100% - 60px) / 4);
   }
 }
+
+@media only screen and (min-width: 1480px) {
+  .inner {
+    padding: 80px;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .inner {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+} 
 </style>

@@ -22,7 +22,9 @@
         <h3>Air 💨</h3>
         <svg v-if="chosenType == 'air'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
       </div>
-      <div class="card tablet-col-2" @click="chosenType = 'random'; startGame()">Random</div>
+    </div>
+    <div class="flex justify-center">
+      <div class="card card-hover tablet-col-2" @click="chosenType = 'random'; startGame()">Random</div>
     </div>
     <div class="msg info" v-if="playerChosen && waiting">
       <strong>Waiting for other player...</strong>
@@ -87,19 +89,18 @@ export default {
         const rando = Math.floor(Math.random() * 3);
         switch(rando) {
           case 0: 
-            break;
             this.chosenType = "water";
+            break;
           case 1:
-            break;
             this.chosenType = "fire";
-          case 2:
             break;
+          case 2:
             this.chosenType = "earth";
+            break;
           case 3: 
             this.chosenType = "air";
         }
       }
-
       this.$myGlobalVars.chosenType = this.chosenType;
       this.socket.emit('chose-type', { game: this.gameID, type: this.chosenType, nickname: this.$myGlobalVars.nickname });
       this.playerChosen = true;
@@ -125,5 +126,12 @@ export default {
     top: 14px;
     right: 14px;
     fill: #81C784;
+  }
+
+  @media only screen and (min-width: 1480px) {
+    .character img {
+      max-height: 200px;
+      width: auto;
+    }
   }
 </style>

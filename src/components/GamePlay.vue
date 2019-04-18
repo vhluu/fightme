@@ -1,21 +1,30 @@
 <template>
-  <div class="game-play">
-    <!-- back button -->
-    <div class="main-display">
-      <div>
-        <app-hp-bar :hp="firstHP"></app-hp-bar>
-        <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
+  <div class="inner">
+    <div class="game-play">
+      <!-- back button -->
+      <div class="main-display">
+        <div class="player player-user">
+          <div class="stats">
+            <p class="name">{{ $myGlobalVars.nickname }}</p>
+            <app-hp-bar :hp="firstHP"></app-hp-bar>
+          </div>
+          <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
+        </div>
+        <div class="player player-opp">
+          <div class="stats stats-second">
+            <p class="name">{{ $myGlobalVars.nickname2 }}</p>
+            <app-hp-bar class="hp-second" :hp="secondHP"></app-hp-bar>
+          </div>
+          <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
+        </div>
+        <img class="pancake-bg" src="../assets/pancake.png" alt="Pancake Stadium">
       </div>
-      <div>
-        <app-hp-bar :hp="secondHP"></app-hp-bar>
-        <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
-      </div>
+      <h3 class="turn-message" v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</h3>
+      <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
+      <div class="message-log">
+        <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
+      </div>   
     </div>
-    <div v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</div>
-    <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
-    <div class="message-log">
-      <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
-    </div>   
   </div>
 </template>
 
@@ -142,8 +151,62 @@ export default {
 </script>
 
 <style>
+#app {
+  /* background-color: #FFDD8A; */
+  /* background-color: #FFE9B3; */
+}
 .main-display {
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.pancake-bg {
+  position: absolute;
+  bottom: -20vw;
+}
+
+/* Character */
+.player {
+  flex-basis: 50%;
+  max-width: 50%;
+  z-index: 10;
+}
+.player-user img {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.character img {
+  height: 30vw;
+}
+
+/* Stats */
+.stats {
+  background: rgba(255,255,255, 0.3);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  width: 80%;
+}
+.stats-second {
+  margin-left: auto;
+}
+.name {
+  margin-top: 0;
+  text-align: left;
+  margin-bottom: 0;
+  width: 70%;
+  font-weight: bold;
+}
+/* .healthbar {
+  margin-bottom: 40px;
+} */
+.hp-second {
+  margin-left: auto;
+}
+.turn-message {
+  padding-top: 20vw;
 }
 </style>

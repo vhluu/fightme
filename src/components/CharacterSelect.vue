@@ -1,28 +1,83 @@
 <template>
-  <div>
-    <h1>Choose a Character</h1>
-    <div>
-      <div class="character" @click="chosenType = 'fire'; startGame()">
-        Fire 🔥
+  <div class="inner">
+    <h1>Choose Your Fighter</h1>
+    <div class="flex space-between mobile-hide">
+      <div class="card card-hover character tablet-col-2 bg-fire" @click="chosenType = 'fire'; startGame()">
+        <img src="../assets/fire_dino.png">
+        <h3>Fire 🔥</h3>
+        <svg v-if="chosenType == 'fire'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
       </div>
-      <div class="character" @click="chosenType = 'water'; startGame()">
-        Water 🌊
+      <div class="card card-hover character tablet-col-2 bg-water" @click="chosenType = 'water'; startGame()">
+        <img src="../assets/water_dino.png">
+        <h3>Water 🌊</h3>
+        <svg v-if="chosenType == 'water'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
       </div>
-      <div class="character" @click="chosenType = 'earth'; startGame()">
-        Earth ⛰️
+      <div class="card card-hover character tablet-col-2 bg-earth" @click="chosenType = 'earth'; startGame()">
+        <img src="../assets/earth_dino.png">
+        <h3>Earth ⛰️</h3>
+        <svg v-if="chosenType == 'earth'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
       </div>
-      <div class="character" @click="chosenType = 'air'; startGame()">
-        Air 💨
+      <div class="card card-hover character tablet-col-2 bg-air" @click="chosenType = 'air'; startGame()">
+        <img src="../assets/air_dino.png">
+        <h3>Air 💨</h3>
+        <svg v-if="chosenType == 'air'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
       </div>
-      <div @click="chosenType = 'random'; startGame()">Random</div>
     </div>
-    <div v-if="playerChosen && waiting">Waiting for other player</div>
+    <div class="glide mobile-only">
+      <div data-glide-el="track" class="glide__track">
+        <ul class="glide__slides">
+          <li class="glide__slide">
+            <div class="card card-hover character tablet-col-2 bg-fire" @click="chosenType = 'fire'; startGame()">
+              <img src="../assets/fire_dino.png">
+              <h3>Fire 🔥</h3>
+              <svg v-if="chosenType == 'fire'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
+            </div>
+          </li>
+          <li class="glide__slide">
+            <div class="card card-hover character tablet-col-2 bg-water" @click="chosenType = 'water'; startGame()">
+              <img src="../assets/water_dino.png">
+              <h3>Water 🌊</h3>
+              <svg v-if="chosenType == 'water'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
+            </div>
+          </li>
+          <li class="glide__slide">
+            <div class="card card-hover character tablet-col-2 bg-earth" @click="chosenType = 'earth'; startGame()">
+              <img src="../assets/earth_dino.png">
+              <h3>Earth ⛰️</h3>
+              <svg v-if="chosenType == 'earth'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
+            </div>
+          </li>
+          <li class="glide__slide">
+            <div class="card card-hover character tablet-col-2 bg-air" @click="chosenType = 'air'; startGame()">
+              <img src="../assets/air_dino.png">
+              <h3>Air 💨</h3>
+              <svg v-if="chosenType == 'air'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.667 191.667"><path d="M95.833 0C42.991 0 0 42.99 0 95.833s42.991 95.834 95.833 95.834 95.833-42.991 95.833-95.834S148.676 0 95.833 0zm55.029 79.646l-60.207 60.207a13.463 13.463 0 0 1-9.583 3.969c-3.62 0-7.023-1.409-9.583-3.969l-30.685-30.685a13.464 13.464 0 0 1-3.97-9.583c0-3.621 1.41-7.024 3.97-9.584a13.46 13.46 0 0 1 9.583-3.97c3.62 0 7.024 1.41 9.583 3.971l21.101 21.1 50.623-50.623a13.463 13.463 0 0 1 9.583-3.969c3.62 0 7.023 1.409 9.583 3.969 5.286 5.286 5.286 13.883.002 19.167z"></path></svg>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="glide__bullets" data-glide-el="controls[nav]">
+        <button class="glide__bullet" data-glide-dir="=0"></button>
+        <button class="glide__bullet" data-glide-dir="=1"></button>
+        <button class="glide__bullet" data-glide-dir="=2"></button>
+        <button class="glide__bullet" data-glide-dir="=3"></button>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <div class="random card card-hover tablet-col-2" @click="chosenType = 'random'; startGame()">Random</div>
+    </div>
+    <div class="msg info" v-if="playerChosen && waiting">
+      <strong>Waiting for other player...</strong>
+    </div>
   </div>
 </template>
 
 <script>
 import { eventBus } from '../main';
 import * as io from 'socket.io-client';
+// import Glide from '@glidejs/glide'
+import Glide, { Images, Swipe, Controls } from '@glidejs/glide/dist/glide.modular.esm'
+
 export default {
   data: function() {
     return {
@@ -32,7 +87,8 @@ export default {
       socket: io('https://salty-brook-12582.herokuapp.com/'),
       playerChosen: false,
       player2Chosen: false,
-      gameID: ''
+      gameID: '',
+      chosenType: ''
     }
   },
   mounted() {
@@ -46,6 +102,10 @@ export default {
         this.$myGlobalVars.chosenType2 = data.type;
       }
     }.bind(this));
+    
+    new Glide('.glide', {
+      // peek: 30,
+    }).mount({ Images, Swipe, Controls });
   },
   watch: {
     playerChosen: function(value) {
@@ -76,19 +136,18 @@ export default {
         const rando = Math.floor(Math.random() * 3);
         switch(rando) {
           case 0: 
-            break;
             this.chosenType = "water";
+            break;
           case 1:
-            break;
             this.chosenType = "fire";
-          case 2:
             break;
+          case 2:
             this.chosenType = "earth";
+            break;
           case 3: 
             this.chosenType = "air";
         }
       }
-
       this.$myGlobalVars.chosenType = this.chosenType;
       this.socket.emit('chose-type', { game: this.gameID, type: this.chosenType, nickname: this.$myGlobalVars.nickname });
       this.playerChosen = true;
@@ -100,5 +159,52 @@ export default {
 <style scoped>
   .character {
     cursor: pointer;
+    position: relative;
+  }
+  .character img {
+    max-height: 150px;
+    min-height: 150px;
+    width: auto;
+  }
+  .character svg {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    fill: #81C784;
+  }
+
+  /* Slider */
+  .glide {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .glide__track {
+    margin-top: -16px;
+  }
+  .glide__bullet {
+    width: 8px;
+    height: 8px;
+  }
+
+  .random {
+    cursor: pointer;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .character {
+      margin-bottom: 20px;
+    }
+  }
+
+  @media only screen and (min-width: 1480px) {
+    .character img {
+      max-height: 200px;
+      width: auto;
+    }
   }
 </style>

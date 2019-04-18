@@ -2,7 +2,7 @@
   <div class="healthbar">
     <div
       class="healthbar text-center"
-      style="background-color: green; margin: 0; color: white;"
+      style="background-color: rgb(181,212,146); margin: 0; color: white;"
       :style="{width: hp + '%'}">
       {{ hp }}
     </div>
@@ -21,11 +21,19 @@ export default {
 
 <style scoped>
 .healthbar {
-  width: 80%;
-  height: 40px;
+  /* width: 70%; */
+  height: 25px;
   background-color: #eee;
-  margin: auto;
   transition: width 500ms;
+  line-height: 25px;
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 768px) {
+  .healthbar {
+    height: 30px;
+    line-height: 30px;
+  }
 }
 </style>
 

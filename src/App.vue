@@ -76,16 +76,6 @@ h2 {
   font-weight: 500;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
 img {
   max-width: 100%;
 }
@@ -203,6 +193,9 @@ button {
     flex-basis: calc((100% - 20px) / 2);
     max-width: calc((100% - 20px) / 2);
   }
+  .mobile-only {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -227,4 +220,10 @@ button {
     margin: 0 auto;
   }
 } 
+
+@media only screen and (max-width: 767px) {
+  .mobile-hide {
+    display: none;
+  }
+}
 </style>

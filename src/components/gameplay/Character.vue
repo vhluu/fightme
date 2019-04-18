@@ -1,6 +1,5 @@
 <template>
   <div class="character">
-    <h3>{{nickname}}</h3>
     <div v-if="type == 'fire'">
       <img src="../../assets/fire_dino.png" alt="Fire Dino">
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="inner">
     <div class="card card-shadow">
-      <h2>Enter an invite code and your nickname to begin</h2>
+      <h2>Enter an invite code &amp; your nickname</h2>
       <input type="text" placeholder="Invite Code" v-model="invite" maxlength="5">
       <input type="text" placeholder="Nickname" v-model="nickname" maxlength="35">
       <div v-if="showErrorMsg">Invite code and nickname are both required!</div>

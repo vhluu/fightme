@@ -70,6 +70,7 @@ html, body {
 
 h1 {
   font-weight: 700;
+  line-height: 1.2;
 }
 
 h2 {

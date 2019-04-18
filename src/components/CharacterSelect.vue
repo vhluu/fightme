@@ -163,6 +163,7 @@ export default {
   }
   .character img {
     max-height: 150px;
+    min-height: 150px;
     width: auto;
   }
   .character svg {
@@ -178,6 +179,9 @@ export default {
   .glide {
     max-width: 400px;
     margin: 0 auto;
+  }
+  .glide__track {
+    margin-top: -16px;
   }
   .glide__bullet {
     width: 8px;

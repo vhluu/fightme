@@ -3,23 +3,24 @@
     <div class="game-play">
       <!-- back button -->
       <div class="main-display">
-        <div class="player player-user">
+        <div class="player player-user" :class="[{front: animatePlayer}]">
           <div class="stats">
             <p class="name">{{ $myGlobalVars.nickname }}</p>
             <app-hp-bar :hp="firstHP"></app-hp-bar>
           </div>
-          <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
+          <app-character :class="[{leftMove: animatePlayer}, {healMove: animateHeal}]" :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
         </div>
-        <div class="player player-opp">
+        <div class="player player-opp" :class="[{front: animatePlayer2}]">
           <div class="stats stats-second">
             <p class="name">{{ $myGlobalVars.nickname2 }}</p>
             <app-hp-bar class="hp-second" :hp="secondHP"></app-hp-bar>
           </div>
-          <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
+          <app-character :class="[{rightMove: animatePlayer2}, {healMove: animateHeal2}]" :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
         </div>
         <img class="pancake-bg" src="../assets/pancake.png" alt="Pancake Stadium">
       </div>
       <h3 class="turn-message" v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</h3>
+      <h3 class="turn-message" v-else>Your turn</h3>
       <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
       <div class="message-log">
         <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
@@ -50,7 +51,9 @@ export default {
         [10,20,30] // strong attack: -
       ],
       gameID: '',
-      myTurn: false // whether user plays the first move
+      myTurn: false, // whether user plays the first move,
+      animatePlayer: false,
+      animatePlayer2: false
     }
   },
   components: {
@@ -72,12 +75,15 @@ export default {
       var msg;
       var msg2 = this.$myGlobalVars.nickname + ' used ' + data.name
       this.messageLog.push(msg2);
+      
       if (data.name == 'Heal') {
+        this.animatePlayer = true; // play animation 
         this.setNewHP(false, 10);
         msg = this.$myGlobalVars.nickname + ' gained 10 HP';
         this.messageLog.push(msg);
       }
       else {
+        this.animateHeal = true; // play animation 
         this.setNewHP(true, damage);
         msg = this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP';
         this.messageLog.push(msg);
@@ -96,6 +102,7 @@ export default {
     // user receives opponent move from server
     this.socket.on('new-move', (data) => {
       if (data.game == this.gameID) {
+        this.animatePlayer = false;
         this.messageLog.push(data.moveMsg);
         this.messageLog.push(data.damageMsg);
         this.firstHP = data.userHP;
@@ -208,5 +215,100 @@ export default {
 }
 .turn-message {
   padding-top: 20vw;
+}
+
+/* Move Animation */
+.front {
+  z-index: 15;
+}
+.leftMove {
+  animation: 2s leftMove;
+}
+.rightMove {
+  animation: 2s rightMove;
+}
+.healMove {
+  animation: 2s healMove;
+}
+
+@keyframes leftMove {
+  0% {
+    transform: translate(0px) rotate(0deg) ;
+  }
+  55% {
+    transform: translate(50%) rotate(0deg);
+  }
+  60% {
+    transform: translate(50%) rotate(30deg);
+  }
+  65% {
+    transform: translate(50%) rotate(0deg);
+  }
+  70% {
+    transform: translate(50%) rotate(30deg);
+  }
+  75% {
+    transform: translate(50%) rotate(0deg);
+  }
+  80% {
+    transform: translate(50%) rotate(30deg);
+  }
+  85% {
+    transform: translate(50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%) rotate(0deg);
+  }
+}
+
+@keyframes rightMove {
+  0% {
+    transform: translate(0px) rotate(0deg) ;
+  }
+  55% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  60% {
+    transform: translate(-50%) rotate(-30deg);
+  }
+  65% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  70% {
+    transform: translate(-50%) rotate(-30deg);
+  }
+  75% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  80% {
+    transform: translate(-50%) rotate(-30deg);
+  }
+  85% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%) rotate(0deg);
+  }
+}
+
+@keyframes healMove {
+  0% {
+    transform: rotate(0deg) ;
+  }
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-15deg);
+  }
+  60% {
+    transform: rotate(15deg);
+  }
+  80% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: translate(0%) rotate(0deg);
+  }
 }
 </style>

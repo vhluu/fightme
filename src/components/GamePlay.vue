@@ -66,6 +66,9 @@ export default {
     this.myTurn = this.$myGlobalVars.goFirst;
     this.gameID = this.$route.params.id;
     eventBus.$on('moveSelected', (data) => {
+      this.animatePlayer2 = false;
+      this.animateHeal2 = false;
+
       this.myTurn = false;
       console.log(data);
       // calculate the damage
@@ -77,13 +80,13 @@ export default {
       this.messageLog.push(msg2);
       
       if (data.name == 'Heal') {
-        this.animatePlayer = true; // play animation 
+        this.animateHeal = true; // play animation 
         this.setNewHP(false, 10);
         msg = this.$myGlobalVars.nickname + ' gained 10 HP';
         this.messageLog.push(msg);
       }
       else {
-        this.animateHeal = true; // play animation 
+        this.animatePlayer = true; // play animation 
         this.setNewHP(true, damage);
         msg = this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP';
         this.messageLog.push(msg);
@@ -103,6 +106,13 @@ export default {
     this.socket.on('new-move', (data) => {
       if (data.game == this.gameID) {
         this.animatePlayer = false;
+        this.animateHeal = false;
+        if(data.move.name == "Heal") {
+          this.animateHeal2 = true;
+        }
+        else {
+          this.animatePlayer2 = true;
+        }
         this.messageLog.push(data.moveMsg);
         this.messageLog.push(data.damageMsg);
         this.firstHP = data.userHP;
@@ -228,7 +238,7 @@ export default {
   animation: 2s rightMove;
 }
 .healMove {
-  animation: 2s healMove;
+  animation: 1s healMove;
 }
 
 @keyframes leftMove {

@@ -1,6 +1,6 @@
 <template>
   <div class="moves">
-    <button class="btn" :class="[type, {disabled: disableBtns}]" :disabled="disableBtns || (index == 1 && waitTime > 0)" v-for="(move, index) in moves[type]" v-bind:key="move.name" @click="selectMove(index)">{{ move.name }}</button>
+    <button class="btn" :class="[type, {disabled: disableBtns || (index == 1 && waitTime > 0)}]" :disabled="disableBtns || (index == 1 && waitTime > 0)" v-for="(move, index) in moves[type]" v-bind:key="move.name" @click="selectMove(index)">{{ move.name }}</button>
     <button class="btn heal-btn" :class="[type, {disabled: disableBtns}]" @click="selectMove(3)" :disabled="disableBtns">Heal</button>
   </div>
 </template>

@@ -98,6 +98,12 @@ export default {
         }
       }
 
+      var messageLog = this.$el.querySelector('.message-log');
+      console.log(messageLog);
+      var isScrolledToBottom = messageLog.scrollHeight - messageLog.clientHeight <= messageLog.scrollTop + 1;
+      console.log(isScrolledToBottom);
+      if(isScrolledToBottom)
+        messageLog.scrollTop = messageLog.scrollHeight - messageLog.clientHeight;
       // emit move to opponent (need the message, move, new HP)
       this.socket.emit('new-move', { moveMsg: msg2, damageMsg: msg, move: data, opponentHP: this.firstHP, userHP: this.secondHP, game: this.gameID });
     });
@@ -217,14 +223,38 @@ export default {
   width: 70%;
   font-weight: bold;
 }
-/* .healthbar {
-  margin-bottom: 40px;
-} */
 .hp-second {
   margin-left: auto;
 }
 .turn-message {
   padding-top: 20vw;
+}
+
+/* Message Log */
+.message-log {
+  max-height: 74px;
+  overflow-y: scroll;
+  color: #00ACC1;
+  border-color: #B2EBF2;
+  background: #E0F7FA;
+  padding: 15px;
+  font-weight: bold;
+}
+.message-log .message:nth-child(even) {
+  margin-bottom: 11px;
+}
+.message-log .message:last-child {
+  margin-bottom: 0;
+}
+.message-log::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    background-color: #ECEFF1;
+}
+.message-log::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #B2EBF2;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
 /* Move Animation */

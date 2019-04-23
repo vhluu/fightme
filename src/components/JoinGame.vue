@@ -1,13 +1,13 @@
 <template>
   <div class="inner">
-    <div class="card card-shadow">
-      <h2>Enter an invite code &amp; your nickname</h2>
+    <h2>Enter an Invite Code &amp; Your Nickname</h2>
+    <div class="join-inputs">
       <input type="text" placeholder="Invite Code" v-model="invite" maxlength="5">
       <input type="text" placeholder="Nickname" v-model="nickname" maxlength="35">
-      <div v-if="showErrorMsg">Invite code and nickname are both required!</div>
       <div class="btn" @click="joinGame">Join Game</div>
-      <div v-if="incorrectInvite">Incorrect Invite Code. Please try again</div>
     </div>
+    <div class="msg error" v-if="showErrorMsg">Invite code and nickname are both required!</div><br>
+    <div class="msg error" v-if="incorrectInvite">Incorrect Invite Code. Please try again</div>
   </div>
 </template>
 
@@ -57,3 +57,26 @@ export default {
   // wait for player 2 and then go to /game/:id/
 }
 </script>
+
+<style scoped>
+input {
+  margin-bottom: 15px;
+}
+
+.btn {
+  margin-bottom: 25px;
+}
+
+.msg {
+  margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+  .join-inputs {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+}
+</style>

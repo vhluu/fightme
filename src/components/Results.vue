@@ -1,20 +1,22 @@
 <template>
   <div class="results">
-    <div v-if="$myGlobalVars.won">
-      <h1>You won!!</h1>
-      <div class="character-result">
-        <img class="crown" :class="$myGlobalVars.chosenType" src="../assets/crown.png" alt="">
-        <app-character class="results" :type="$myGlobalVars.chosenType"></app-character>
+    <div class="inner">
+      <div v-if="$myGlobalVars.won">
+        <h1 class="results-header">You won!!</h1>
+        <div class="character-result">
+          <img class="crown" :class="$myGlobalVars.chosenType" src="../assets/crown.png" alt="">
+          <app-character class="results" :type="$myGlobalVars.chosenType"></app-character>
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <h1>You lost :(</h1>
-      <div class="character-result">
-        <img class="crown" :class="$myGlobalVars.chosenType" src="../assets/crown.png" alt="">
-        <app-character class="results" :type="$myGlobalVars.chosenType"></app-character>
+      <div v-else>
+        <h1 class="results-header">You lost :(</h1>
+        <div class="character-result">
+          <img class="cone" :class="$myGlobalVars.chosenType" src="../assets/cone.png" alt="">
+          <app-character class="results" :type="$myGlobalVars.chosenType"></app-character>
+        </div>
       </div>
+      <div class="btn finish-btn" @click="goHome">Finish Game</div>
     </div>
-    <div class="btn" @click="goHome">Finish Game</div>
   </div>
 </template>
 
@@ -44,6 +46,15 @@ export default {
   height: 47vw;
 }
 
+.results-header {
+  padding-bottom: 20px;
+}
+
+.finish-btn {
+  margin-top: 20px;
+}
+
+/* Crown */
 .crown {
   position: absolute;
 }
@@ -69,5 +80,33 @@ export default {
   transform: rotate(32deg);
   width: 9%;
   top: 4%;
+}
+
+/* Cone hat */
+.cone {
+  position: absolute;
+}
+.cone.water {
+  left: 33%;
+  top: -8%;
+  transform: rotate(18deg);
+  width: 12%;
+}
+.cone.fire {
+  left: 41%;
+  transform: rotate(11deg);
+  top: -6%;
+  width: 15%;
+}
+.cone.earth {
+  width: 10%;
+  left: 22%;
+  top: 48.5%;
+}
+.cone.air {
+  left: 42%;
+  transform: rotate(25deg);
+  width: 11%;
+  top: -1%;
 }
 </style>

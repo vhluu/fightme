@@ -11,6 +11,20 @@
       <p class="preview-text">Preview</p>
       <img src="../assets/gameplay_example2.png">
     </div>
+    <div class="question">?</div>
+    <div class="q-modal card">
+      <h2 class="q-modal-title">Questions you might have</h2>
+      <h4>What is this game for?</h4>
+      <p>Think of this game like rock-paper-scissors, where two people decide something based on the outcome of the game. Except here, we battle it out using dinosaurs.</p>
+      <h4>How does this work?</h4>
+      <p>1. Create a game (no signup needed!)</p>
+      <p>2. Send your invite code to your friend so that they can play</p>
+      <p>3. Choose your dinosaur (types: fire, water, earth, &amp; air)</p>
+      <p>4. Select moves</p>
+      <p>5. Win</p>
+      <h4>What if I have no friend to play with?</h4>
+      <p>Open the game in two different browsers and play on your own!</p>
+    </div>
   </div>
 </template>
 
@@ -43,6 +57,41 @@ export default {
   left: 24px;
 }
 
+.q-modal {
+  display: none;
+  position: absolute;
+  background: #fff;
+  text-align: left;
+  width: 70vw;
+  max-width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  padding: 20px 35px;
+}
+.q-modal-title {
+  text-align: center;
+  font-weight: 700;
+}
+.question {
+  background-color: #49c8ff;
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  line-height: 30px;
+  color: #fff;
+  font-weight: bold;
+  bottom: 20px;
+  left: 20px;
+}
+
+.question:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 768px) {
   .home {
     display: flex;
@@ -57,10 +106,16 @@ export default {
     padding-top: 30px;
     margin-top: 0;
   }
+  .gameplay-ex img {
+    min-width: 228px;
+  }
+}
 
+@media only screen and (min-width: 1024px) {
   .home-desc {
     margin-top: 40px;
   }
-
 }
+
+
 </style>

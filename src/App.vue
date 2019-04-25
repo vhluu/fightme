@@ -1,45 +1,19 @@
 <template>
   <div id="app">
+    <app-header></app-header>
     <router-view/>
   </div>
 </template>
 
 <script>
-import Home from './components/Home.vue';
-import GamePlay from './components/GamePlay.vue';
-import CharacterSelect from './components/CharacterSelect.vue';
+import Header from './components/Header.vue';
 
 import { eventBus } from './main';
 
 export default {
   name: 'app',
-  data: function() {
-    return {
-      selectedComp: 'app-home',
-      chosenType: null
-    }
-  },
   components: {
-    'app-home': Home,
-    'app-game-play': GamePlay,
-    'app-character-select': CharacterSelect
-  },
-  created() {
-    // listen to selectedComp change event
-    // eventBus.$on('changeScreen', (comp) => {
-    //   this.selectedComp = comp;
-    // });
-
-    // eventBus.$on('chosenType', (type) => {
-    //   this.chosenType = type;
-    // });
-  },
-  computed: {
-    // currentProps() {
-    //   if (this.selectedComp == 'app-game-play') {
-    //     return { type: this.chosenType }
-    //   }
-    // }
+    'app-header': Header
   }
 }
 </script>
@@ -55,11 +29,11 @@ html, body {
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: rgb(51,71,91);
+  color: #45617b;
   /* background: rgb(245,247,250); */
   height: 100%;
 }
@@ -69,12 +43,14 @@ html, body {
 }
 
 h1 {
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
+  letter-spacing: 0.8px;
 }
 
 h2 {
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.7px;
 }
 
 img {

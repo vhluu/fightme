@@ -1,7 +1,7 @@
 <template>
   <div class="home inner">
-    <div>
-      <h1>Fight a friend over any decision!</h1>
+    <div class="home-desc">
+      <h1>Fight your friends over any decision!</h1>
       <p>Too polite and fighting over who's gunna pay the bill?<br>Or are you guys too lazy and fighting over who's gunna drive?</p>
       <p><strong>Whatever it is, tell them "Fight Me!" and see who wins ;)</strong></p>
       <a class="btn" href="/#/add-game">New Game</a>
@@ -9,7 +9,7 @@
     </div>
     <div class="gameplay-ex card">
       <p class="preview-text">Preview</p>
-      <img src="../assets/gameplay_example.png">
+      <img src="../assets/gameplay_example2.png">
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   margin: 0 auto;
   background: #fff;
   width: 100%;
-  padding-top: 60px;
+  padding-top: 20px;
 }
 
 .gameplay-ex {
@@ -37,16 +37,17 @@ export default {
 .preview-text {
   margin: 0;
   position: absolute;
-  top: 10px;
+  top: 14px;
   opacity: 0.4;
   font-size: 18px;
+  left: 24px;
 }
 
 @media only screen and (min-width: 768px) {
   .home {
     display: flex;
     justify-content: center;
-    padding-top: 20vh;
+    padding-top: 14vh;
   }
 
   .gameplay-ex {
@@ -55,6 +56,10 @@ export default {
     position: relative;
     padding-top: 30px;
     margin-top: 0;
+  }
+
+  .home-desc {
+    margin-top: 40px;
   }
 
 }

@@ -53,7 +53,10 @@ export default {
       gameID: '',
       myTurn: false, // whether user plays the first move,
       animatePlayer: false,
-      animatePlayer2: false
+      animatePlayer2: false,
+      animateHeal: false,
+      animateHeal2: false,
+      firstMove: true
     }
   },
   components: {
@@ -65,6 +68,7 @@ export default {
   created() {
     this.myTurn = this.$myGlobalVars.goFirst;
     this.gameID = this.$route.params.id;
+    
     eventBus.$on('moveSelected', (data) => {
       this.animatePlayer2 = false;
       this.animateHeal2 = false;
@@ -78,18 +82,25 @@ export default {
       var msg;
       var msg2 = this.$myGlobalVars.nickname + ' used ' + data.name
       this.messageLog.push(msg2);
-      
+
+      var messageLog = this.$el.querySelector('.message-log');
       if (data.name == 'Heal') {
         this.animateHeal = true; // play animation 
         this.setNewHP(false, 10);
         msg = this.$myGlobalVars.nickname + ' gained 10 HP';
         this.messageLog.push(msg);
+        this.$nextTick(() => {
+          messageLog.scrollTop+=55;
+        });
       }
       else {
         this.animatePlayer = true; // play animation 
         this.setNewHP(true, damage);
         msg = this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP';
         this.messageLog.push(msg);
+        this.$nextTick(() => {
+          messageLog.scrollTop+=55;
+        });
 
         // opponent has been defeated by latest move
         if (this.secondHP == 0) {
@@ -98,12 +109,8 @@ export default {
         }
       }
 
-      var messageLog = this.$el.querySelector('.message-log');
-      console.log(messageLog);
-      var isScrolledToBottom = messageLog.scrollHeight - messageLog.clientHeight <= messageLog.scrollTop + 1;
-      console.log(isScrolledToBottom);
-      if(isScrolledToBottom)
-        messageLog.scrollTop = messageLog.scrollHeight - messageLog.clientHeight;
+      
+
       // emit move to opponent (need the message, move, new HP)
       this.socket.emit('new-move', { moveMsg: msg2, damageMsg: msg, move: data, opponentHP: this.firstHP, userHP: this.secondHP, game: this.gameID });
     });
@@ -121,9 +128,16 @@ export default {
         }
         this.messageLog.push(data.moveMsg);
         this.messageLog.push(data.damageMsg);
+        this.$nextTick(() => {
+          var messageLog = this.$el.querySelector('.message-log');
+          messageLog.scrollTop+=55;
+        });
+
         this.firstHP = data.userHP;
         this.secondHP = data.opponentHP;
         this.myTurn = true;
+        
+
         if (data.userHP == 0) {
           this.playerDefeated(this.$myGlobalVars.nickname);
           this.$myGlobalVars.won = false;

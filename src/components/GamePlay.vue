@@ -3,23 +3,24 @@
     <div class="game-play">
       <!-- back button -->
       <div class="main-display">
-        <div class="player player-user">
+        <div class="player player-user" :class="[{front: animatePlayer}]">
           <div class="stats">
             <p class="name">{{ $myGlobalVars.nickname }}</p>
             <app-hp-bar :hp="firstHP"></app-hp-bar>
           </div>
-          <app-character :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
+          <app-character :class="[{leftMove: animatePlayer}, {healMove: animateHeal}]" :type="$myGlobalVars.chosenType" :nickname="$myGlobalVars.nickname"></app-character> 
         </div>
-        <div class="player player-opp">
+        <div class="player player-opp" :class="[{front: animatePlayer2}]">
           <div class="stats stats-second">
             <p class="name">{{ $myGlobalVars.nickname2 }}</p>
             <app-hp-bar class="hp-second" :hp="secondHP"></app-hp-bar>
           </div>
-          <app-character :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
+          <app-character :class="[{rightMove: animatePlayer2}, {healMove: animateHeal2}]" :type="$myGlobalVars.chosenType2" :nickname="$myGlobalVars.nickname2"></app-character>
         </div>
         <img class="pancake-bg" src="../assets/pancake.png" alt="Pancake Stadium">
       </div>
       <h3 class="turn-message" v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</h3>
+      <h3 class="turn-message" v-else>Your turn</h3>
       <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
       <div class="message-log">
         <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
@@ -50,7 +51,12 @@ export default {
         [10,20,30] // strong attack: -
       ],
       gameID: '',
-      myTurn: false // whether user plays the first move
+      myTurn: false, // whether user plays the first move,
+      animatePlayer: false,
+      animatePlayer2: false,
+      animateHeal: false,
+      animateHeal2: false,
+      firstMove: true
     }
   },
   components: {
@@ -62,7 +68,11 @@ export default {
   created() {
     this.myTurn = this.$myGlobalVars.goFirst;
     this.gameID = this.$route.params.id;
+    
     eventBus.$on('moveSelected', (data) => {
+      this.animatePlayer2 = false;
+      this.animateHeal2 = false;
+
       this.myTurn = false;
       console.log(data);
       // calculate the damage
@@ -72,15 +82,25 @@ export default {
       var msg;
       var msg2 = this.$myGlobalVars.nickname + ' used ' + data.name
       this.messageLog.push(msg2);
+
+      var messageLog = this.$el.querySelector('.message-log');
       if (data.name == 'Heal') {
+        this.animateHeal = true; // play animation 
         this.setNewHP(false, 10);
         msg = this.$myGlobalVars.nickname + ' gained 10 HP';
         this.messageLog.push(msg);
+        this.$nextTick(() => {
+          messageLog.scrollTop+=55;
+        });
       }
       else {
+        this.animatePlayer = true; // play animation 
         this.setNewHP(true, damage);
         msg = this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP';
         this.messageLog.push(msg);
+        this.$nextTick(() => {
+          messageLog.scrollTop+=55;
+        });
 
         // opponent has been defeated by latest move
         if (this.secondHP == 0) {
@@ -89,6 +109,8 @@ export default {
         }
       }
 
+      
+
       // emit move to opponent (need the message, move, new HP)
       this.socket.emit('new-move', { moveMsg: msg2, damageMsg: msg, move: data, opponentHP: this.firstHP, userHP: this.secondHP, game: this.gameID });
     });
@@ -96,11 +118,26 @@ export default {
     // user receives opponent move from server
     this.socket.on('new-move', (data) => {
       if (data.game == this.gameID) {
+        this.animatePlayer = false;
+        this.animateHeal = false;
+        if(data.move.name == "Heal") {
+          this.animateHeal2 = true;
+        }
+        else {
+          this.animatePlayer2 = true;
+        }
         this.messageLog.push(data.moveMsg);
         this.messageLog.push(data.damageMsg);
+        this.$nextTick(() => {
+          var messageLog = this.$el.querySelector('.message-log');
+          messageLog.scrollTop+=55;
+        });
+
         this.firstHP = data.userHP;
         this.secondHP = data.opponentHP;
         this.myTurn = true;
+        
+
         if (data.userHP == 0) {
           this.playerDefeated(this.$myGlobalVars.nickname);
           this.$myGlobalVars.won = false;
@@ -200,13 +237,132 @@ export default {
   width: 70%;
   font-weight: bold;
 }
-/* .healthbar {
-  margin-bottom: 40px;
-} */
 .hp-second {
   margin-left: auto;
 }
 .turn-message {
   padding-top: 20vw;
+}
+
+/* Message Log */
+.message-log {
+  max-height: 74px;
+  overflow-y: scroll;
+  color: #00ACC1;
+  border-color: #B2EBF2;
+  background: #E0F7FA;
+  padding: 15px;
+  font-weight: bold;
+}
+.message-log .message:nth-child(even) {
+  margin-bottom: 11px;
+}
+.message-log .message:last-child {
+  margin-bottom: 0;
+}
+.message-log::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    background-color: #ECEFF1;
+}
+.message-log::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #B2EBF2;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+/* Move Animation */
+.front {
+  z-index: 15;
+}
+.leftMove {
+  animation: 2s leftMove;
+}
+.rightMove {
+  animation: 2s rightMove;
+}
+.healMove {
+  animation: 1s healMove;
+}
+
+@keyframes leftMove {
+  0% {
+    transform: translate(0px) rotate(0deg) ;
+  }
+  55% {
+    transform: translate(50%) rotate(0deg);
+  }
+  60% {
+    transform: translate(50%) rotate(30deg);
+  }
+  65% {
+    transform: translate(50%) rotate(0deg);
+  }
+  70% {
+    transform: translate(50%) rotate(30deg);
+  }
+  75% {
+    transform: translate(50%) rotate(0deg);
+  }
+  80% {
+    transform: translate(50%) rotate(30deg);
+  }
+  85% {
+    transform: translate(50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%) rotate(0deg);
+  }
+}
+
+@keyframes rightMove {
+  0% {
+    transform: translate(0px) rotate(0deg) ;
+  }
+  55% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  60% {
+    transform: translate(-50%) rotate(-30deg);
+  }
+  65% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  70% {
+    transform: translate(-50%) rotate(-30deg);
+  }
+  75% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  80% {
+    transform: translate(-50%) rotate(-30deg);
+  }
+  85% {
+    transform: translate(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%) rotate(0deg);
+  }
+}
+
+@keyframes healMove {
+  0% {
+    transform: rotate(0deg) ;
+  }
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-15deg);
+  }
+  60% {
+    transform: rotate(15deg);
+  }
+  80% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: translate(0%) rotate(0deg);
+  }
 }
 </style>

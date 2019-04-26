@@ -101,7 +101,7 @@ export default {
 
   .gameplay-ex {
     flex-basis: 30%;
-    margin-left: 100px;
+    margin-left: 40px;
     position: relative;
     padding-top: 30px;
     margin-top: 0;
@@ -114,6 +114,28 @@ export default {
 @media only screen and (min-width: 1024px) {
   .home-desc {
     margin-top: 40px;
+  }
+  .gameplay-ex {
+    margin-left: 100px;
+  }
+}
+
+@media only screen and (min-width: 1480px) {
+  .gameplay-ex {
+    margin-left: 200px;
+  }
+  .home {
+    padding-top: 18vh;
+  }
+}
+
+
+@media only screen and (min-width: 2000px) {
+  .gameplay-ex {
+    margin-left: 300px;
+  }
+  .home {
+    padding-top: 18vh;
   }
 }
 

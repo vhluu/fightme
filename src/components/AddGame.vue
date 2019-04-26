@@ -1,5 +1,5 @@
 <template>
-  <div class="inner">
+  <div class="inner add-game">
     <div v-if="addedGame">
       <h2>Your Invite Code Is:</h2>
       <div class="invite-code msg">{{ invite }}</div>
@@ -90,5 +90,9 @@ input {
   display: block;
   width: 100px;
   margin: 0 auto 15px auto;
+}
+
+.add-game {
+  margin-top: 15vh;
 }
 </style>

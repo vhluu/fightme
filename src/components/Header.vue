@@ -28,6 +28,10 @@ export default {
 .lightest {
   opacity: 0.3;
 }
+
+.header a:hover {
+  color: #FF7575 !important;
+}
 @media only screen and (min-width: 768px) {
   
 

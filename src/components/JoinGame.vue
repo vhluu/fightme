@@ -1,5 +1,5 @@
 <template>
-  <div class="inner">
+  <div class="inner join-game">
     <h2>Enter an Invite Code &amp; Your Nickname</h2>
     <div class="join-inputs">
       <input type="text" placeholder="Invite Code" v-model="invite" maxlength="5">
@@ -69,6 +69,10 @@ input {
 
 .msg {
   margin-bottom: 15px;
+}
+
+.join-game {
+  margin-top: 15vh;
 }
 
 @media only screen and (max-width: 767px) {

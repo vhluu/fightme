@@ -1,6 +1,7 @@
 <template>
   <div class="moves">
     <button class="btn" :class="[type, {disabled: disableBtns || (index == 1 && waitTime > 0)}]" :disabled="disableBtns || (index == 1 && waitTime > 0)" v-for="(move, index) in moves[type]" v-bind:key="move.name" @click="selectMove(index)">{{ move.name }}</button>
+    <button class="btn heal-btn" :class="[type, {disabled: disableBtns}]" @click="selectMove(2)" :disabled="disableBtns">50/50</button>
     <button class="btn heal-btn" :class="[type, {disabled: disableBtns}]" @click="selectMove(3)" :disabled="disableBtns">Heal</button>
   </div>
 </template>
@@ -14,14 +15,14 @@ export default {
       moves: {
         fire: [
           {"name": "Hot Cheeto Puffs", "damage": 1},
-          {"name": "Spicy Fire Noodle Fling", "damage": 2},
+          {"name": "Spicy Fire Noodles", "damage": 2},
         ],
         water: [
-          {"name": "Sweaty Palms Attack", "damage": 1},
-          {"name": "Voss Artesian Water Fall", "damage": 2}
+          {"name": "Sweaty Palms", "damage": 1},
+          {"name": "Voss Artesian Waterfall", "damage": 2}
         ],
         earth: [
-          {"name": "Upstairs Neighbors Stomp", "damage": 1},
+          {"name": "Salad Toss", "damage": 1},
           {"name": "Global Warming", "damage": 2}
         ],
         air: [
@@ -39,7 +40,8 @@ export default {
       if (index == 1) this.waitTime = 2;
       
       // we want to emit to gameplay the new chosen move
-      var moveInfo = (index == 3) ? {name: "Heal", damage: 0} : this.moves[this.type][index];
+      var random = Math.round(Math.random());
+      var moveInfo = (index == 3) ? {name: "Heal", damage: 0} : ((index == 2) ? {name: "50/50", damage: random} : this.moves[this.type][index]);
       eventBus.$emit('moveSelected', moveInfo);
       
     }

@@ -58,9 +58,15 @@ img {
 }
 
 input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   font-size: 14px;
   padding: 8px;
   width: 250px;
+  border: 1px solid rgb(223,223,223);
+  border-radius: 0;
+  outline: none;
 }
 
 input::placeholder {
@@ -183,11 +189,20 @@ button {
     flex-basis: calc((100% - 60px) / 4);
     max-width: calc((100% - 60px) / 4);
   }
+  body {
+    font-size: 18px;
+  }
 }
 
 @media only screen and (min-width: 1480px) {
   .inner {
     padding: 80px;
+  }
+  h1 {
+    font-size: 36px;
+  }
+  body {
+    font-size: 20px;
   }
 }
 

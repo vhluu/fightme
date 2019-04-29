@@ -60,15 +60,15 @@ export default {
 }
 .crown.water {
   width: 10%;
-  left: 33%;
-  top: -2%;
+  left: 32%;
+  top: -1%;
   transform: rotate(18deg);
 }
 .crown.fire {
   width: 11%;
   left: 42%;
   transform: rotate(11deg);
-  top: 1%;
+  top: 3%;
 }
 .crown.earth {
   width: 9%;
@@ -87,8 +87,8 @@ export default {
   position: absolute;
 }
 .cone.water {
-  left: 33%;
-  top: -8%;
+  left: 32%;
+  top: -7%;
   transform: rotate(18deg);
   width: 12%;
 }
@@ -109,4 +109,84 @@ export default {
   width: 11%;
   top: -1%;
 }
+
+@media only screen and (min-width: 768px) {
+  .results.character img {
+    height: 360px;
+  }
+  .cone.fire {
+    width: 103px;
+    left: calc(50% - 60px);
+  }
+  .cone.water {
+    width: 85px;
+    left: calc(50% - 130px);  
+  }
+  .cone.earth {
+    width: 77px;
+    left: calc(50% - 215px);
+  }
+  .cone.air {
+    width: 83px;
+    left: calc(50% - 60px);
+  }
+
+  .crown.fire {
+    width: 100px;
+    left: calc(50% - 70px);
+    top: 0;
+  }
+  .crown.water {
+    width: 69px;
+    left: calc(50% - 130px);
+  }
+  .crown.earth {
+    width: 69px;
+    left: calc(50% - 215px);
+  }
+  .crown.air {
+    width: 76px;
+    left: calc(50% - 60px);
+  }
+}
+
+@media only screen and (min-width: 1480px) {
+  .results.character img {
+    height: 490px;
+  }
+  .cone.fire {
+    width: 140px;
+    left: calc(50% - 82px);
+  }
+  .cone.water {
+    width: 120px;
+    left: calc(50% - 180px);  
+  }
+  .cone.earth {
+    width: 105px;
+    left: calc(50% - 290px);
+  }
+  .cone.air {
+    width: 120px;
+    left: calc(50% - 90px);
+  }
+  .crown.fire {
+    width: 155px;
+    left: calc(50% - 100px);
+    top: -1%;
+  }
+  .crown.water {
+    width: 105px;
+    left: calc(50% - 176px);
+  }
+  .crown.earth {
+    width: 105px;
+    left: calc(50% - 290px);
+  }
+  .crown.air {
+    width: 105px;
+    left: calc(50% - 80px);
+  }
+}
+
 </style>

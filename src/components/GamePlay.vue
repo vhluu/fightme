@@ -1,5 +1,5 @@
 <template>
-  <div class="inner">
+  <div class="inner game-inner">
     <div class="game-play">
       <!-- back button -->
       <div class="main-display">
@@ -76,7 +76,13 @@ export default {
       this.myTurn = false;
       console.log(data);
       // calculate the damage
-      var damage = this.calculateDamage(data.damage);
+      var damage;
+      if (data.name == "50/50") {
+        damage = (data.damage == 0) ? 6 : 15;
+      }
+      else {
+        damage = this.calculateDamage(data.damage);
+      } 
 
       // display event in message log
       var msg;
@@ -135,13 +141,12 @@ export default {
 
         this.firstHP = data.userHP;
         this.secondHP = data.opponentHP;
-        this.myTurn = true;
-        
 
         if (data.userHP == 0) {
           this.playerDefeated(this.$myGlobalVars.nickname);
           this.$myGlobalVars.won = false;
         }
+        this.myTurn = true;
       }     
     });
 
@@ -178,10 +183,15 @@ export default {
     },
     playerDefeated(nickname) {
       this.messageLog.push('RIP :( ' + nickname + 'has been defeated!');
-        this.$router.push({
+      this.$nextTick(() => {
+          var messageLog = this.$el.querySelector('.message-log');
+          messageLog.scrollTop+=55;
+        });
+      setTimeout(() => this.$router.push({
           name: 'Results',
           params: { id: this.gameID }
-        });
+      }), 3000);
+        
     }
   }
 }
@@ -253,6 +263,7 @@ export default {
   background: #E0F7FA;
   padding: 15px;
   font-weight: bold;
+  font-size: 16px;
 }
 .message-log .message:nth-child(even) {
   margin-bottom: 11px;
@@ -365,4 +376,50 @@ export default {
     transform: translate(0%) rotate(0deg);
   }
 }
+
+@media only screen and (min-width: 768px) {
+  .game-inner {
+    width: 768px;
+    margin: 0 auto;
+  }
+  .pancake-bg {
+    bottom: -153px;
+  }
+  .character img {
+    height: 236px;
+  }
+  .turn-message {
+    padding-top: 154px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .game-inner {
+    width: 1024px;
+  }
+  .pancake-bg {
+    bottom: -204px;
+  }
+  .character img {
+    height: 307px;
+  }
+  .turn-message {
+    padding-top: 204px;
+  }
+}
+
+/* @media only screen and (min-width: 1480px) {
+  .game-inner {
+    width: 1480px;
+  }
+  .pancake-bg {
+    bottom: -296px;
+  }
+  .character img {
+    height: 444px;
+  }
+  .turn-message {
+    padding-top: 296px;
+  }
+} */
 </style>

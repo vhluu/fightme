@@ -76,7 +76,13 @@ export default {
       this.myTurn = false;
       console.log(data);
       // calculate the damage
-      var damage = this.calculateDamage(data.damage);
+      var damage;
+      if (data.name == "50/50") {
+        damage = (data.damage == 0) ? 6 : 15;
+      }
+      else {
+        damage = this.calculateDamage(data.damage);
+      } 
 
       // display event in message log
       var msg;

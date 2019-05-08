@@ -22,7 +22,7 @@
       <h3 class="turn-message" v-if="!myTurn">{{ $myGlobalVars.nickname2 }}'s turn</h3>
       <h3 class="turn-message" v-else>Your turn</h3>
       <app-moves :type="$myGlobalVars.chosenType" :disableBtns="!myTurn"></app-moves>
-      <div class="message-log">
+      <div class="message-log" :class="[{alignFix: adjustLog}]">
         <div class="message" v-for="(message, index) in messageLog" v-bind:key="index">{{ message }}</div>
       </div>   
     </div>
@@ -56,7 +56,8 @@ export default {
       animatePlayer2: false,
       animateHeal: false,
       animateHeal2: false,
-      firstMove: true
+      firstMove: true,
+      adjustLog: false
     }
   },
   components: {
@@ -104,6 +105,7 @@ export default {
         this.setNewHP(true, damage);
         msg = this.$myGlobalVars.nickname2 + ' lost ' + damage + ' HP';
         this.messageLog.push(msg);
+        if (this.messageLog.length == 4) { this.adjustLog = true;}
         this.$nextTick(() => {
           messageLog.scrollTop+=55;
         });
@@ -114,8 +116,6 @@ export default {
           this.$myGlobalVars.won = true;
         }
       }
-
-      
 
       // emit move to opponent (need the message, move, new HP)
       this.socket.emit('new-move', { moveMsg: msg2, damageMsg: msg, move: data, opponentHP: this.firstHP, userHP: this.secondHP, game: this.gameID });
@@ -134,6 +134,7 @@ export default {
         }
         this.messageLog.push(data.moveMsg);
         this.messageLog.push(data.damageMsg);
+        if (this.messageLog.length == 4) { this.adjustLog = true;}
         this.$nextTick(() => {
           var messageLog = this.$el.querySelector('.message-log');
           messageLog.scrollTop+=55;
@@ -264,6 +265,12 @@ export default {
   padding: 15px;
   font-weight: bold;
   font-size: 16px;
+}
+.alignFix::after {
+  content: '';
+  height: 15px;
+  opacity: 0;
+  display: block;
 }
 .message-log .message:nth-child(even) {
   margin-bottom: 11px;

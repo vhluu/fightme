@@ -180,5 +180,13 @@ export default {
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .gameplay-ex {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 
 </style>

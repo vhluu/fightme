@@ -9,7 +9,7 @@
     </div>
     <div class="gameplay-ex card">
       <p class="preview-text">Preview</p>
-      <img src="../assets/gameplay_example2.png">
+      <img src="/assets/gameplay_example2.png">
     </div>
     <div class="question icon" @click="openModal = true;">?</div>
     <div class="q-modal card" :class="{active: openModal}">

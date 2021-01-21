@@ -33,7 +33,6 @@
 import HPBar from './gameplay/HPBar.vue';
 import Moves from './gameplay/Moves.vue';
 import Character from './gameplay/Character.vue';
-import Activity from './gameplay/Activity.vue';
 import { eventBus } from '../main';
 import * as io from 'socket.io-client';
 
@@ -64,7 +63,6 @@ export default {
     'app-hp-bar': HPBar,
     'app-moves': Moves,
     'app-character': Character,
-    'app-activity': Activity
   },
   created() {
     this.myTurn = this.$myGlobalVars.goFirst;
